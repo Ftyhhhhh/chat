@@ -6,7 +6,6 @@
     <title>AI 智能助手 | 对话终端</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 自定义背景渐变和过度效果 */
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             height: 100vh;
@@ -37,12 +36,13 @@
                 <div class="w-3 h-3 rounded-full bg-red-400"></div>
                 <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
                 <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                <span class="ml-4 text-xs font-medium text-gray-400 uppercase tracking-widest">Secure AI Session</span>
+                <span class="ml-4 text-xs font-medium text-gray-400 uppercase tracking-widest" id="status-text">Initializing New Session...</span>
             </div>
 
             <div class="flex-grow w-full relative">
                 <iframe
-                    src="https://udify.app/chatbot/hiIECXbx2Y1R6g6q"
+                    id="chat-frame"
+                    src=""
                     style="width: 100%; height: 100%;"
                     frameborder="0"
                     allow="microphone">
@@ -54,6 +54,25 @@
     <footer class="pb-6 text-center text-gray-400 text-xs">
         &copy; 2025 AI Assistant Interface. Powered by Gemini & Dify.
     </footer>
+
+    <script>
+        // 当页面加载完成时执行
+        window.onload = function() {
+            const iframe = document.getElementById('chat-frame');
+            const statusText = document.getElementById('status-text');
+            const baseUrl = "https://udify.app/chatbot/hiIECXbx2Y1R6g6q";
+            
+            // 生成一个基于当前时间戳的唯一随机数
+            const timestamp = new Date().getTime();
+            
+            // 拼接新的 URL，添加 t 参数强制刷新会话
+            // 这样做可以让 Dify 认为是一个全新的访问请求
+            iframe.src = `${baseUrl}?t=${timestamp}`;
+            
+            // 更新状态文案
+            statusText.innerText = "Secure AI Session (New)";
+        };
+    </script>
 
 </body>
 </html>
